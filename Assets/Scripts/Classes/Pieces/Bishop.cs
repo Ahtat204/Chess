@@ -2,7 +2,6 @@
 using Assets.Scripts.Classes.GameClasses;
 using Assets.Scripts.Classes.PieceComponent;
 using Assets.Scripts.Enums;
-using Assets.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Assets.Scripts.Classes.Pieces
@@ -17,7 +16,7 @@ namespace Assets.Scripts.Classes.Pieces
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PieceMovementComponent))]
     [RequireComponent(typeof(PieceSelectionComponent))]
-    public sealed class Bishop : Piece,IPromotable
+    public sealed class Bishop : Piece
     {
         /// <summary>
         /// Material value of the Bishop. 

@@ -15,13 +15,13 @@ namespace Assets.Scripts.Classes.Pieces
     /// 2. Diagonal displacement is restricted to capturing maneuvers.
     /// 3. Initial state allows for double-impulse movement (2 cells).
     /// </remarks>
-    public sealed class Pawn : Piece,IPromote
+    public sealed class Pawn : Piece
     {
         /// <summary>
         /// Internal buffer for potential moves, including standard, double-step, 
         /// captures, and specialized maneuvers.
         /// </summary>
-        private readonly List<Vector2Int> _possibleMoves = new(5);
+        private List<Vector2Int> _possibleMoves = new(5);
 
         /// <summary>
         /// Base unit value. In endgame heuristics, this value scales non-linearly 
@@ -67,14 +67,9 @@ namespace Assets.Scripts.Classes.Pieces
             _possibleMoves.AddIfValid(positionCell.x - 1, positionCell.y + forward);
         }
 
-        /*public static explicit operator Queen(Pawn pawn)
+        public static explicit operator Queen(Pawn piece)
         {
-           
-           
-        }*/
-        public IPromotable Promotable()
-        {
-            throw new System.NotImplementedException();
+            return piece.GetComponent<Queen>();
         }
     }
 }

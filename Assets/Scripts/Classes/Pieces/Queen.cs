@@ -14,7 +14,7 @@ namespace Assets.Scripts.Classes.Pieces
     /// It possesses the highest mobility coefficient, capable of controlling up to 27 squares 
     /// simultaneously from a central position.
     /// </remarks>
-    public sealed class Queen : Piece,IPromotable
+    public sealed class Queen : Piece
 
     {
     /// <summary>

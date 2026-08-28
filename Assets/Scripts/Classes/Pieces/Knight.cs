@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Classes.GameClasses;
-using Assets.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Assets.Scripts.Classes.Pieces
@@ -14,7 +13,7 @@ namespace Assets.Scripts.Classes.Pieces
     /// without interacting with any intermediate units. This bypasses standard collision-checking 
     /// logic required for sliding pieces (Bishops, Rooks, Queens).
     /// </remarks>
-    public sealed class Knight : Piece,IPromotable
+    public sealed class Knight : Piece
     {
         /// <summary>
         /// Internal buffer for potential L-shape coordinates.

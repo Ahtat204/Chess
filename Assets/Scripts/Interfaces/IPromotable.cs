@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Classes;
-using Assets.Scripts.Classes.Pieces;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.Interfaces
 {
@@ -9,11 +9,12 @@ namespace Assets.Scripts.Interfaces
     /// </summary>
     public interface IPromotable
     {
-        
+        public List<Vector2Int> PossibleMoves { get;  }
+        public  byte Value { get; }
     }
 
     public interface IPromote
     {
-        public IPromotable Promotable();
+        public void Promotable(IPromotable newPiece);
     }
 }
