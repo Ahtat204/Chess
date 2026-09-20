@@ -22,13 +22,36 @@ namespace Assets.Scripts.Classes
             return count;
         }
 
-        public static byte IsAttackedByBishops(in Vector2Int kingPos, in Vector2Int bishopPos)
+        public static byte IsAttackedByBishops(in PieceInfo king, in PieceInfo bishop,in Span<PieceInfo> pieces)
+        {
+            var size = pieces.Length ;
+            if( size == 0 ) return 0;
+            byte count = 0;
+            var kingPos = king.Position;
+            var bishopPos = bishop.Position;
+            // first loop 
+            for (byte i = 1; i < Board.Size; i++)
+            { 
+//              var found=pieces[i];
+//                var target=found.Position;
+            if(kingPos.x==bishopPos.x+i && kingPos.y == bishopPos.y+i) count++;// we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+            if(kingPos.x==bishopPos.x+1 && kingPos.y == bishopPos.y-1) count++;//we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+            if(kingPos.x==bishopPos.x-i && kingPos.y == bishopPos.y+i) count++;//we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+            if(kingPos.x==bishopPos.x-i && kingPos.y == bishopPos.y-i) count++;//we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+
+              
+            }
+            //
+            // if (bishopPos.x == kingPos.x + 1 && bishopPos.y == kingPos.y + 1) count++;
+            // if (bishopPos.x == kingPos.x + 1 && bishopPos.y == kingPos.y - 1) count++;
+            // if (bishopPos.x == kingPos.x - 1 && bishopPos.y == kingPos.y - 1) count++;
+            //if (bishopPos.x == kingPos.x - 1 && bishopPos.y == kingPos.y + 1) count++;
+            return count;
+        }
+
+        public static byte IsAttackedByQueens(in Vector2Int kingPos, in Vector2Int queenPos)
         {
             byte count = 0;
-            if (bishopPos.x == kingPos.x + 1 && bishopPos.y == kingPos.y + 1) count++;
-            if (bishopPos.x == kingPos.x + 1 && bishopPos.y == kingPos.y - 1) count++;
-            if (bishopPos.x == kingPos.x - 1 && bishopPos.y == kingPos.y - 1) count++;
-            if (bishopPos.x == kingPos.x - 1 && bishopPos.y == kingPos.y + 1) count++;
             return count;
         }
 
@@ -48,9 +71,19 @@ namespace Assets.Scripts.Classes
 
         public static byte IsAttackedByRooks(in PieceInfo king, in PieceInfo rook, Span<PieceInfo> pieces)
         {
+            var size = pieces.Length ;
+            if( size == 0 ) return 0;
             byte count = 0;
-
-            if (king.Position.y == rook.Position.y)
+            var kingPos = king.Position;
+            var rookPos = rook.Position;
+            if (kingPos.x == rookPos.x) count++;;// we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+            if (kingPos.y == rookPos.y) count++;;// we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+            // first loop 
+            for (byte i = 1; i < Board.Size; i++)
+            {
+               
+            }
+            /*if (king.Position.y == rook.Position.y)
             {
                 var y = king.Position.y;
 
@@ -100,7 +133,7 @@ namespace Assets.Scripts.Classes
                         k--;
                     }
                 }
-            }
+            }*/
 
             return count;
         }

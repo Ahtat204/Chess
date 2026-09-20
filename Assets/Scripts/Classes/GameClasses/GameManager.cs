@@ -94,7 +94,7 @@ namespace Assets.Scripts.Classes.GameClasses
                     }
 
                     //bishop check detection
-                    if (piece.MaterialValue == 4) attackers += IsAttackedByBishops(targetKing.Position, piece.Position);
+                    if (piece.MaterialValue == 4) attackers += IsAttackedByBishops(targetKing, piece,pieces);
 
                     //queen check detection
                     if (piece.MaterialValue == 9)
