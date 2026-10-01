@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using System.Runtime.InteropServices;
+using Assets.Scripts.Enums;
 using UnityEngine;
 
 namespace Assets.Scripts.Structs
@@ -16,8 +17,14 @@ namespace Assets.Scripts.Structs
     /// collection, which introduces repetitive pointer indirection and poor reference locality during heavy evaluation cycles.
     /// </para>
     /// </remarks>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PieceInfo
     {
+        /// <summary>
+        /// The active 2D grid coordinates of the piece on the board matrix.
+        /// </summary>
+        public readonly Vector2Int Position;
+
         /// <summary>
         /// The team color affiliation of the chess piece.
         /// </summary>
@@ -27,11 +34,6 @@ namespace Assets.Scripts.Structs
         /// The static algorithmic value weight assigned to this piece type (e.g., Pawn=1, Queen=9).
         /// </summary>
         public readonly byte MaterialValue;
-
-        /// <summary>
-        /// The active 2D grid coordinates of the piece on the board matrix.
-        /// </summary>
-        public readonly Vector2Int Position;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PieceInfo"/> snapshot struct.

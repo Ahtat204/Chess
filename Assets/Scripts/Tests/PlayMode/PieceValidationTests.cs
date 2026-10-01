@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using static Assets.Scripts.Classes.Utility;
 
-namespace Tests.PlayMode
+namespace Assets.Scripts.Tests.PlayMode
 {
     public class PieceValidationTests
     {

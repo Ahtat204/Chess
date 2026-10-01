@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayMode
+namespace Assets.Scripts.Tests.PlayMode
 {
     public class QueenTest
     {

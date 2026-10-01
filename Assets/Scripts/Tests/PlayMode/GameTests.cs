@@ -6,9 +6,9 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using static Tests.PlayMode.Helper;
+using static Assets.Scripts.Tests.PlayMode.Helper;
 using static NUnit.Framework.Assert;
-namespace Tests.PlayMode
+namespace Assets.Scripts.Tests.PlayMode
 {
     public class GameTests
     {

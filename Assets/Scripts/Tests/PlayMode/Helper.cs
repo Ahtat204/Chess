@@ -5,7 +5,7 @@ using Assets.Scripts.Enums;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Tests.PlayMode
+namespace Assets.Scripts.Tests.PlayMode
 {
     public static class Helper
     {
