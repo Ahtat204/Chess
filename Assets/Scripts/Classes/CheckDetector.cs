@@ -29,26 +29,105 @@ namespace Assets.Scripts.Classes
             byte count = 0;
             var kingPos = king.Position;
             var bishopPos = bishop.Position;
-            // first loop 
-            for (byte i = 1; i < Board.Size; i++)
+            var diagonal = Math.Abs(kingPos.x - bishopPos.x) - Math.Abs(kingPos.y - bishopPos.y);
+            if (diagonal == 0) // the bishop is on the same diagonal as the king
             {
-//              var found=pieces[i];
-//                var target=found.Position;
-                if (kingPos.x == bishopPos.x + i && kingPos.y == bishopPos.y + i)
-                    count++; // we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
-                if (kingPos.x == bishopPos.x + 1 && kingPos.y == bishopPos.y - 1)
-                    count++; //we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
-                if (kingPos.x == bishopPos.x - i && kingPos.y == bishopPos.y + i)
-                    count++; //we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
-                if (kingPos.x == bishopPos.x - i && kingPos.y == bishopPos.y - i)
-                    count++; //we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+                if (bishopPos.x - kingPos.x == bishopPos.y - kingPos.y) // bishop is in top right of the king
+                {
+                    for (byte i = 1; i < size; i++)
+                    {
+                        var piece = pieces[i];
+                        var x = piece.Position.x;
+                        var y = piece.Position.y;
+                        if (piece.Color == king.Color) // found a friendly piece
+                        {
+                            if (x - kingPos.x ==
+                                y - kingPos.y) // the friendly piece is on the same diagonal as the king
+                            {
+                                if (x > kingPos.x && x < bishopPos.x && y > kingPos.y &&
+                                    y < bishopPos.y) // it is between the king and the bishop
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    count++;
+                }
+
+                if (bishopPos.x - kingPos.x == kingPos.y - bishopPos.y) // bishop is in down right of the king
+                {
+                    for (byte i = 1; i < size; i++)
+                    {
+                        var piece = pieces[i];
+                        var x = piece.Position.x;
+                        var y = piece.Position.y;
+                        if (piece.Color == king.Color) // found a friendly piece
+                        {
+                            if (x - kingPos.x ==
+                                kingPos.y-y) // the friendly piece is on the same diagonal as the king
+                            {
+                                if (x > kingPos.x && x < bishopPos.x && y < kingPos.y &&
+                                    y > bishopPos.y) // it is between the king and the bishop
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    count++;
+                }
+                
+                if ( kingPos.x -bishopPos.x  == kingPos.y - bishopPos.y) // bishop is in down left of the king
+                {
+                    for (byte i = 1; i < size; i++)
+                    {
+                        var piece = pieces[i];
+                        var x = piece.Position.x;
+                        var y = piece.Position.y;
+                        if (piece.Color == king.Color) // found a friendly piece
+                        {
+                            if ( kingPos.x -x ==
+                                kingPos.y-y) // the friendly piece is on the same diagonal as the king
+                            {
+                                if (x < kingPos.x && x > bishopPos.x && y < kingPos.y &&
+                                    y > bishopPos.y) // it is between the king and the bishop
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    count++;
+                }
+                if ( kingPos.x-bishopPos.x == bishopPos.y - kingPos.y) // bishop is in top right of the king
+                {
+                    for (byte i = 1; i < size; i++)
+                    {
+                        var piece = pieces[i];
+                        var x = piece.Position.x;
+                        var y = piece.Position.y;
+                        if (piece.Color == king.Color) // found a friendly piece
+                        {
+                            if ( kingPos.x -x ==
+                                y - kingPos.y) // the friendly piece is on the same diagonal as the king
+                            {
+                                if (x < kingPos.x && x > bishopPos.x && y > kingPos.y &&
+                                    y < bishopPos.y) // it is between the king and the bishop
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    count++;
+                }
             }
 
-            //
-            // if (bishopPos.x == kingPos.x + 1 && bishopPos.y == kingPos.y + 1) count++;
-            // if (bishopPos.x == kingPos.x + 1 && bishopPos.y == kingPos.y - 1) count++;
-            // if (bishopPos.x == kingPos.x - 1 && bishopPos.y == kingPos.y - 1) count++;
-            //if (bishopPos.x == kingPos.x - 1 && bishopPos.y == kingPos.y + 1) count++;
             return count;
         }
 
@@ -80,7 +159,7 @@ namespace Assets.Scripts.Classes
             var kingPos = king.Position;
             var rookPos = rook.Position;
             if (kingPos.x ==
-                rookPos.x) 
+                rookPos.x)
             {
                 var kingY = king.Position.y;
                 var rookY = rook.Position.y;
@@ -94,9 +173,9 @@ namespace Assets.Scripts.Classes
                         {
                             break; //if we found a friendly piece that covering the king from behind , a piece that sits between the king and the rook}
                         }
-
-                        count++;
                     }
+
+                    count++;
                 }
 
                 if (kingY < rookY) // if the rook is in front of the king
@@ -109,14 +188,14 @@ namespace Assets.Scripts.Classes
                         {
                             break; //if we found a friendly piece that covering the king from the front , a piece that sits between the king and the rook}
                         }
-
-                        count++;
                     }
+
+                    count++;
                 }
             }
 
             if (kingPos.y ==
-                rookPos.y) // we still need to check if the King is protected by a friendly piece, meaning the friendly piece is pinned to the king
+                rookPos.y)
             {
                 var kingX = king.Position.x;
                 var rookX = rook.Position.x;
@@ -130,10 +209,11 @@ namespace Assets.Scripts.Classes
                         {
                             break; //if we found a friendly piece that covering the king from left , a piece that sits between the king and the rook}
                         }
-
-                        count++;
                     }
+
+                    count++;
                 }
+
                 if (kingX < rookX) // if the rook is in the right of the king
                 {
                     for (byte i = 1; i < size; i++)
@@ -144,18 +224,13 @@ namespace Assets.Scripts.Classes
                         {
                             break; //if we found a friendly piece that covering the king from right , a piece that sits between the king and the rook}
                         }
-
-                        count++;
                     }
+
+                    count++;
                 }
             }
-            return count;
-        }
 
-        public static byte IsAttackedByQueens(in PieceInfo king, in PieceInfo queen, Span<PieceInfo> pieces)
-        {
-            byte attackers = 0;
-            return attackers;
+            return count;
         }
     }
 }
