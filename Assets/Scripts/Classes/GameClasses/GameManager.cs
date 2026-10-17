@@ -70,7 +70,7 @@ namespace Assets.Scripts.Classes.GameClasses
                     break;
                 }
                 default:
-                   break;
+                    break;
             }
 
             for (byte i = 0; i < pieces.Length; i++)
@@ -84,15 +84,13 @@ namespace Assets.Scripts.Classes.GameClasses
                     //knight check detection
                     if (piece.MaterialValue == 3) attackers += IsAttackedByKnights(targetKing.Position, piece.Position);
                     //rook check detection
-                    if (piece.MaterialValue == 5) attackers+=IsAttackedByRooks(targetKing, piece,pieces);
+                    if (piece.MaterialValue == 5) attackers += IsAttackedByRooks(targetKing, piece, pieces);
 
                     //bishop check detection
-                    if (piece.MaterialValue == 4) attackers += IsAttackedByBishops(targetKing, piece,pieces);
+                    if (piece.MaterialValue == 4) attackers += IsAttackedByBishops(targetKing, piece, pieces);
 
                     //queen check detection
-                    if (piece.MaterialValue == 9)
-                    {
-                    }
+                    if (piece.MaterialValue == 9) attackers += IsAttackedByQueens(targetKing, piece, pieces);
                 }
             }
         }

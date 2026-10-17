@@ -66,7 +66,7 @@ namespace Assets.Scripts.Classes
                         if (piece.Color == king.Color) // found a friendly piece
                         {
                             if (x - kingPos.x ==
-                                kingPos.y-y) // the friendly piece is on the same diagonal as the king
+                                kingPos.y - y) // the friendly piece is on the same diagonal as the king
                             {
                                 if (x > kingPos.x && x < bishopPos.x && y < kingPos.y &&
                                     y > bishopPos.y) // it is between the king and the bishop
@@ -79,8 +79,8 @@ namespace Assets.Scripts.Classes
 
                     count++;
                 }
-                
-                if ( kingPos.x -bishopPos.x  == kingPos.y - bishopPos.y) // bishop is in down left of the king
+
+                if (kingPos.x - bishopPos.x == kingPos.y - bishopPos.y) // bishop is in down left of the king
                 {
                     for (byte i = 1; i < size; i++)
                     {
@@ -89,8 +89,8 @@ namespace Assets.Scripts.Classes
                         var y = piece.Position.y;
                         if (piece.Color == king.Color) // found a friendly piece
                         {
-                            if ( kingPos.x -x ==
-                                kingPos.y-y) // the friendly piece is on the same diagonal as the king
+                            if (kingPos.x - x ==
+                                kingPos.y - y) // the friendly piece is on the same diagonal as the king
                             {
                                 if (x < kingPos.x && x > bishopPos.x && y < kingPos.y &&
                                     y > bishopPos.y) // it is between the king and the bishop
@@ -103,7 +103,8 @@ namespace Assets.Scripts.Classes
 
                     count++;
                 }
-                if ( kingPos.x-bishopPos.x == bishopPos.y - kingPos.y) // bishop is in top right of the king
+
+                if (kingPos.x - bishopPos.x == bishopPos.y - kingPos.y) // bishop is in top right of the king
                 {
                     for (byte i = 1; i < size; i++)
                     {
@@ -112,7 +113,7 @@ namespace Assets.Scripts.Classes
                         var y = piece.Position.y;
                         if (piece.Color == king.Color) // found a friendly piece
                         {
-                            if ( kingPos.x -x ==
+                            if (kingPos.x - x ==
                                 y - kingPos.y) // the friendly piece is on the same diagonal as the king
                             {
                                 if (x < kingPos.x && x > bishopPos.x && y > kingPos.y &&
@@ -131,10 +132,11 @@ namespace Assets.Scripts.Classes
             return count;
         }
 
-        public static byte IsAttackedByQueens(in Vector2Int kingPos, in Vector2Int queenPos)
+        public static byte IsAttackedByQueens(in PieceInfo kingPos, in PieceInfo queenPos, Span<PieceInfo> pieces)
         {
-            byte count = 0;
-            return count;
+            var diagonal=IsAttackedByBishops(kingPos, queenPos, pieces);
+            var linear = IsAttackedByRooks(kingPos, queenPos, pieces);
+            return (byte)(diagonal + linear);
         }
 
         public static byte IsAttackedByPawns(in Vector2Int kingPos, in Vector2Int pawnPos, in PieceColor pieceColor)
@@ -158,8 +160,8 @@ namespace Assets.Scripts.Classes
             byte count = 0;
             var kingPos = king.Position;
             var rookPos = rook.Position;
-            if (kingPos.x ==
-                rookPos.x)
+            if (kingPos.x == rookPos.x)
+
             {
                 var kingY = king.Position.y;
                 var rookY = rook.Position.y;
@@ -193,9 +195,8 @@ namespace Assets.Scripts.Classes
                     count++;
                 }
             }
+            if (kingPos.y == rookPos.y)
 
-            if (kingPos.y ==
-                rookPos.y)
             {
                 var kingX = king.Position.x;
                 var rookX = rook.Position.x;
@@ -229,7 +230,6 @@ namespace Assets.Scripts.Classes
                     count++;
                 }
             }
-
             return count;
         }
     }
