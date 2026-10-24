@@ -21,5 +21,14 @@ namespace Assets.Scripts.Tests.PlayMode
             var queen = queenComponent.piece;
             Assert.IsNotNull(queen);
         }
+
+        public IEnumerator TestKnightCheckDetection()
+        {
+            SceneManager.LoadScene("GameScene");
+            yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "GameScene");
+            yield return new WaitForSeconds(1.1f);
+            var pieces = GameManager.Instance.Pieces;
+            
+        }
     }
 }

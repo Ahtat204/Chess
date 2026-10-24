@@ -78,3 +78,6 @@ Runtree.py
 Scripts.csproj.DotSettings
 Tests.csproj.DotSettings
 format-report.txt
+PlayMode.csproj.DotSettings
+cleanup.sh
+test.sh

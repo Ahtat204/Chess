@@ -8,6 +8,29 @@ namespace Assets.Scripts.Classes
 {
     public static partial class Utility
     {
+        public static void GetKing( PlayerTurn turn,Span<PieceInfo> pieces,ref PieceInfo targetKing )
+        {
+            switch (turn)
+            {
+                case PlayerTurn.BlackPlayer:
+                {
+                    for (byte i = 0; i < pieces.Length; i++)
+                        if (pieces[i].Color == PieceColor.Black && pieces[i].MaterialValue == 0)
+                            targetKing = pieces[i];
+                    break;
+                }
+                case PlayerTurn.WhitePlayer:
+                {
+                    for (byte i = 0; i < pieces.Length; i++)
+                        if (pieces[i].Color == PieceColor.White && pieces[i].MaterialValue == 0)
+                            targetKing = pieces[i];
+                    break;
+                }
+                default:
+                    break;
+            }
+
+        }
         public static byte IsAttackedByKnights(in Vector2Int kingPos, in Vector2Int knightPos)
         {
             byte count = 0;
@@ -138,7 +161,13 @@ namespace Assets.Scripts.Classes
             var linear = IsAttackedByRooks(kingPos, queenPos, pieces);
             return (byte)(diagonal + linear);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kingPos">as the name suggests , it is the king's position</param>
+        /// <param name="pawnPos">as the name suggests , it is the pawn's position</param>
+        /// <param name="pieceColor">this is the color of the pawn , not the color of the king</param>
+        /// <returns></returns>
         public static byte IsAttackedByPawns(in Vector2Int kingPos, in Vector2Int pawnPos, in PieceColor pieceColor)
         {
             var yDir = pieceColor == PieceColor.White ? 1 : -1;

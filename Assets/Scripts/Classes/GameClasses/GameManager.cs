@@ -52,27 +52,9 @@ namespace Assets.Scripts.Classes.GameClasses
             turn = turn == PlayerTurn.WhitePlayer ? PlayerTurn.BlackPlayer : PlayerTurn.WhitePlayer;
             Span<PieceInfo> pieces = stackalloc PieceInfo[Pieces.Count];
             Pieces.ToSpan(pieces);
+            if(pieces.Length == 0) return;
             var targetKing = new PieceInfo();
-            switch (turn)
-            {
-                case PlayerTurn.BlackPlayer:
-                {
-                    for (byte i = 0; i < pieces.Length; i++)
-                        if (pieces[i].Color == PieceColor.Black && pieces[i].MaterialValue == 0)
-                            targetKing = pieces[i];
-                    break;
-                }
-                case PlayerTurn.WhitePlayer:
-                {
-                    for (byte i = 0; i < pieces.Length; i++)
-                        if (pieces[i].Color == PieceColor.White && pieces[i].MaterialValue == 0)
-                            targetKing = pieces[i];
-                    break;
-                }
-                default:
-                    break;
-            }
-
+            GetKing(turn, pieces, ref targetKing);
             for (byte i = 0; i < pieces.Length; i++)
             {
                 var piece = pieces[i];
