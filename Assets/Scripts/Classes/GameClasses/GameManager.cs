@@ -48,8 +48,14 @@ namespace Assets.Scripts.Classes.GameClasses
 
         private void SwitchPlayerTurn()
         {
-            byte attackers = 0;
+            
             turn = turn == PlayerTurn.WhitePlayer ? PlayerTurn.BlackPlayer : PlayerTurn.WhitePlayer;
+        
+        }
+
+        private void CheckDetection()
+        {
+            byte attackers = 0;
             Span<PieceInfo> pieces = stackalloc PieceInfo[Pieces.Count];
             Pieces.ToSpan(pieces);
             if(pieces.Length == 0) return;
@@ -74,7 +80,7 @@ namespace Assets.Scripts.Classes.GameClasses
                     //queen check detection
                     if (piece.MaterialValue == 9) attackers += IsAttackedByQueens(targetKing, piece, pieces);
                 }
-            }
+            } 
         }
     }
 }
