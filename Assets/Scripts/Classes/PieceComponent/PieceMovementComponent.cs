@@ -68,7 +68,7 @@ namespace Assets.Scripts.Classes.PieceComponent
         {
             CurrPos = Board.BoardInstance.tilemap.WorldToCell(transform.position);
             Instance.Pieces ??= new();
-            Instance.Pieces?.Add((Vector2Int)CurrPos, this);
+            Instance.Pieces?.TryAdd((Vector2Int)CurrPos, this);
             SelectionComponent = GetComponent<PieceSelectionComponent>();
         }
 

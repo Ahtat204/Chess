@@ -43,7 +43,7 @@ namespace Assets.Scripts.Tests.PlayMode
             var king = new PieceInfo(kingPos,PieceColor.Black,0);
             var rook= new PieceInfo(rookPos,PieceColor.White,5);
             var result=IsAttackedByRooks(king, rook,board);
-            Assert.Equals(result,1);
+            Assert.AreEqual(result,1);
 
         }
     }

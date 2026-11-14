@@ -2,6 +2,8 @@
 using Assets.Scripts.Classes.GameClasses;
 using Assets.Scripts.Enums;
 using UnityEngine;
+using static Assets.Scripts.Classes.GameClasses.GameManager;
+using static Assets.Scripts.Classes.GameClasses.Board;
 #pragma warning disable CS0168
 namespace Assets.Scripts.Classes.PieceComponent
 {
@@ -34,9 +36,9 @@ namespace Assets.Scripts.Classes.PieceComponent
         {
             _canCastle =
                 true; //TODO:improve this condition with a function that scans dictionary and see if the Rook has moved 
-            CurrPos = Board.BoardInstance.tilemap.WorldToCell(transform.position);
-            GameManager.Instance.Pieces ??= new();
-            GameManager.Instance.Pieces?.Add((Vector2Int)CurrPos, this);
+            CurrPos = BoardInstance.tilemap.WorldToCell(transform.position);
+            Instance.Pieces ??= new();
+            Instance.Pieces?.TryAdd((Vector2Int)CurrPos, this);
             SelectionComponent = GetComponent<PieceSelectionComponent>();
         }
 
@@ -48,17 +50,17 @@ namespace Assets.Scripts.Classes.PieceComponent
             var position = transform.position;
             var newPosition = new Vector3Int(targetPos.x, targetPos.y, 0);
             var worldCellCenter =
-                Board.BoardInstance.tilemap.GetCellCenterWorld(new Vector3Int(targetPos.x, targetPos.y, 0));
+                BoardInstance.tilemap.GetCellCenterWorld(new Vector3Int(targetPos.x, targetPos.y, 0));
             pieces.TryGetValue(targetPos, out var occupied);
 
             if (occupied is null)
             {
-                if (targetPos.Equals(Board.BoardInstance.WhiteKingShortCastlePosition))
+                if (targetPos.Equals(BoardInstance.WhiteKingShortCastlePosition))
                 {
-                    bool exists = pieces.TryGetValue(Board.BoardInstance.WhiteRightRook, out var rightWhiteRook);
+                    bool exists = pieces.TryGetValue(BoardInstance.WhiteRightRook, out var rightWhiteRook);
                     if (!exists) return MoveType.None;
                     var _ = rightWhiteRook.MovePiece(pieces,
-                        Board.BoardInstance.WhiteRightRookAfterShortCastlePosition);
+                        BoardInstance.WhiteRightRookAfterShortCastlePosition);
                     transform.position = Vector2.MoveTowards(position, worldCellCenter, 10);
                     SelectionComponent.OnDeselect();
                     //  Count = 1;
@@ -66,37 +68,37 @@ namespace Assets.Scripts.Classes.PieceComponent
                     return MoveType.ShortCastle;
                 }
 
-                if (targetPos.Equals(Board.BoardInstance.WhiteKingLongCastlePosition))
+                if (targetPos.Equals(BoardInstance.WhiteKingLongCastlePosition))
                 {
-                    var exists = pieces.TryGetValue(Board.BoardInstance.WhiteLeftRook, out var leftWhiteRook);
+                    var exists = pieces.TryGetValue(BoardInstance.WhiteLeftRook, out var leftWhiteRook);
                     if (!exists) return MoveType.None;
                     var _ = leftWhiteRook.MovePiece(pieces,
-                        Board.BoardInstance.WhiteLeftRookAfterLongCastlePosition);
+                        BoardInstance.WhiteLeftRookAfterLongCastlePosition);
                     transform.position = Vector2.MoveTowards(position, worldCellCenter, 10);
                     SelectionComponent.OnDeselect();
                     UpdatePosition(pieces, targetPos, newPosition);
                     return MoveType.LongCastle;
                 }
 
-                if (targetPos.Equals(Board.BoardInstance.BlackKingShortCastlePosition))
+                if (targetPos.Equals(BoardInstance.BlackKingShortCastlePosition))
                 {
-                    bool exists = pieces.TryGetValue(Board.BoardInstance.BlackRightRook, out var rightBlackRook);
+                    bool exists = pieces.TryGetValue(BoardInstance.BlackRightRook, out var rightBlackRook);
                     if (!exists) return MoveType.None;
                     transform.position = Vector2.MoveTowards(position, worldCellCenter, 10);
                     var _ = rightBlackRook.MovePiece(pieces,
-                        Board.BoardInstance.BlackRightRookAfterShortCastlePosition);
+                        BoardInstance.BlackRightRookAfterShortCastlePosition);
                     SelectionComponent.OnDeselect();
                     UpdatePosition(pieces, targetPos, newPosition);
                     return MoveType.ShortCastle;
                 }
 
-                if (targetPos.Equals(Board.BoardInstance.BlackKingLongCastlePosition))
+                if (targetPos.Equals(BoardInstance.BlackKingLongCastlePosition))
                 {
-                    bool exists = pieces.TryGetValue(Board.BoardInstance.BlackLeftRook, out var blackLeftRook);
+                    bool exists = pieces.TryGetValue(BoardInstance.BlackLeftRook, out var blackLeftRook);
                     if (!exists) return MoveType.None;
                     transform.position = Vector2.MoveTowards(position, worldCellCenter, 10);
                     var _ = blackLeftRook.MovePiece(pieces,
-                        Board.BoardInstance.BlackLeftRookAfterLongCastlePosition);
+                        BoardInstance.BlackLeftRookAfterLongCastlePosition);
                     SelectionComponent.OnDeselect();
                     UpdatePosition(pieces, targetPos, newPosition);
                     return MoveType.LongCastle;
