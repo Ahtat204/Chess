@@ -60,6 +60,7 @@ namespace Assets.Scripts.Classes
                     for (byte i = 1; i < size; i++)
                     {
                         var piece = pieces[i];
+                         if(piece.Position==kingPos)continue;
                         var x = piece.Position.x;
                         var y = piece.Position.y;
                         if (piece.Color == king.Color) // found a friendly piece
@@ -84,6 +85,7 @@ namespace Assets.Scripts.Classes
                     for (byte i = 1; i < size; i++)
                     {
                         var piece = pieces[i];
+                         if(piece.Position==kingPos)continue;
                         var x = piece.Position.x;
                         var y = piece.Position.y;
                         if (piece.Color == king.Color) // found a friendly piece
@@ -108,6 +110,7 @@ namespace Assets.Scripts.Classes
                     for (byte i = 1; i < size; i++)
                     {
                         var piece = pieces[i];
+                         if(piece.Position==kingPos)continue;
                         var x = piece.Position.x;
                         var y = piece.Position.y;
                         if (piece.Color == king.Color) // found a friendly piece
@@ -132,6 +135,7 @@ namespace Assets.Scripts.Classes
                     for (byte i = 1; i < size; i++)
                     {
                         var piece = pieces[i];
+                         if(piece.Position==kingPos)continue;
                         var x = piece.Position.x;
                         var y = piece.Position.y;
                         if (piece.Color == king.Color) // found a friendly piece
